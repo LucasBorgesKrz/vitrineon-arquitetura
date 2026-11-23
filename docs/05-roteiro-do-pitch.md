@@ -1,24 +1,24 @@
 # 5. Roteiro do Pitch (10–15 min)
 
 > Público: **clientes e stakeholders** (diretoria da VitrineOn), não só técnicos. Fale de **risco, dinheiro e cliente**; use os termos técnicos só para sustentar o argumento.
-> Slides: [`/apresentacao/pitch-vitrineon.pdf`](../apresentacao/pitch-vitrineon.pdf). Ajuste os nomes conforme o grupo.
+> Slides: [`/apresentacao/pitch-vitrineon.pdf`](../apresentacao/pitch-vitrineon.pdf).
 
-| Slide | Tempo | Quem | Mensagem principal | O que falar |
-|---|---|---|---|---|
-| 1. Capa | 0:30 | Integrante 1 | Quem somos e o que vamos vender | "Vamos mostrar uma loja virtual que aguenta a Black Friday e protege o cartão do cliente, com uma equipe de 6 pessoas." |
-| 2. O desafio | 1:00 | Integrante 1 | O problema é de negócio | 10× de tráfego, cartão de crédito e 50 mil produtos. A regra de ouro: estoque e pagamento precisam bater. |
-| 3. Casos de uso | 1:00 | Integrante 1 | O sistema é simples de entender | Cliente busca, monta carrinho e paga; administrador atualiza estoque; o checkout sempre inclui pagamento. |
-| 4. Restrições | 1:00 | Integrante 2 | O contexto decide a arquitetura | Equipe pequena, orçamento curto, LGPD/PCI. "Por isso não vamos propor a arquitetura da Netflix." |
-| 5. Atributos | 1:30 | Integrante 2 | Segurança > Confiabilidade > Desempenho | Ler as metas com números. Explicar por que segurança vence disponibilidade quando os dois conflitam. |
-| 6. Estilo | 1:30 | Integrante 3 | Escolha justificada, com alternativas | Mostrar as 3 opções. "Só separamos o que tem motivo real: a busca, para escalar, e o pagamento, para isolar." |
-| 7. Componentes | 1:30 | Integrante 3 | Quem faz o quê | Percorrer da esquerda para a direita: front-end → API Gateway → Loja Core / Catálogo / Pagamento → filas. Apontar setas sólidas (síncronas) e tracejadas (eventos). |
-| 8. Checkout seguro | 1:30 | Integrante 3 | O momento mais crítico está protegido | Os 5 passos. Destacar: cartão nunca passa por nós; idempotência evita cobrança dupla. |
-| 9. Implantação | 1:30 | Integrante 4 | Onde tudo roda | AWS São Paulo, 2 zonas, sub-redes privadas, serviços gerenciados. "Cada caixa do diagrama anterior tem um lugar aqui." |
-| 10. Black Friday | 1:00 | Integrante 4 | Escala onde o tráfego está | Catálogo 2 → 20, CDN, cache, escalonamento agendado. "E fora do pico a conta volta ao normal." |
-| 11. E se der errado? | 1:00 | Integrante 4 | Falhas foram pensadas | Escolher 2 linhas da tabela e contar como história ("Imagine que a AWS perde um datacenter na Black Friday..."). |
-| 12. Trade-offs | 1:00 | Integrante 2 | Maturidade: sabemos o que estamos abrindo mão | Consistência eventual na vitrine, NAT único, dependência da AWS e como cada um é mitigado. |
-| 13. Fechamento | 0:30 | Integrante 1 | Frase final + perguntas | "Segura onde o risco é maior, escalável onde o tráfego é maior, e simples o bastante para entregar em 6 meses." |
-| **Total** | **~14 min** | | | |
+| Slide | Tempo | Mensagem principal | O que falar |
+|---|---|---|---|
+| 1. Capa | 0:30 | Quem sou e o que vou apresentar | "Vou mostrar uma loja virtual que aguenta a Black Friday e protege o cartão do cliente, com uma equipe de 6 pessoas." |
+| 2. O desafio | 1:00 | O problema é de negócio | 10× de tráfego, cartão de crédito e 50 mil produtos. A regra de ouro: estoque e pagamento precisam bater. |
+| 3. Casos de uso | 1:00 | O sistema é simples de entender | Cliente busca, monta carrinho e paga; administrador atualiza estoque; o checkout sempre inclui pagamento. |
+| 4. Restrições | 1:00 | O contexto decide a arquitetura | Equipe pequena, orçamento curto, LGPD/PCI. "Por isso não vou propor a arquitetura da Netflix." |
+| 5. Atributos | 1:30 | Segurança > Confiabilidade > Desempenho | Ler as metas com números. Explicar por que segurança vence disponibilidade quando os dois conflitam. |
+| 6. Estilo | 1:30 | Escolha justificada, com alternativas | Mostrar as 3 opções. "Só separamos o que tem motivo real: a busca, para escalar, e o pagamento, para isolar." |
+| 7. Componentes | 1:30 | Quem faz o quê | Percorrer da esquerda para a direita: front-end → API Gateway → Loja Core / Catálogo / Pagamento → filas. Apontar setas sólidas (síncronas) e tracejadas (eventos). |
+| 8. Checkout seguro | 1:30 | O momento mais crítico está protegido | Os 5 passos. Destacar: cartão nunca passa por nós; idempotência evita cobrança dupla. |
+| 9. Implantação | 1:30 | Onde tudo roda | AWS São Paulo, 2 zonas, sub-redes privadas, serviços gerenciados. "Cada caixa do diagrama anterior tem um lugar aqui." |
+| 10. Black Friday | 1:00 | Escala onde o tráfego está | Catálogo 2 → 20, CDN, cache, escalonamento agendado. "E fora do pico a conta volta ao normal." |
+| 11. E se der errado? | 1:00 | Falhas foram pensadas | Escolher 2 linhas da tabela e contar como história ("Imagine que a AWS perde um datacenter na Black Friday..."). |
+| 12. Trade-offs | 1:00 | Maturidade: sabemos o que estamos abrindo mão | Consistência eventual na vitrine, NAT único, dependência da AWS e como cada um é mitigado. |
+| 13. Fechamento | 0:30 | Frase final + perguntas | "Segura onde o risco é maior, escalável onde o tráfego é maior, e simples o bastante para entregar em 6 meses." |
+| **Total** | **~14 min** | | |
 
 ## Perguntas prováveis (e respostas curtas)
 
@@ -34,6 +34,6 @@
 
 ## Dicas de apresentação
 
-- Ensaiem com cronômetro. Se passar de 15 min, encurtem os slides 3 e 4.
-- No slide de componentes, usem o ponteiro ou zoom: o PNG está em alta resolução.
-- Terminem cada parte com o **atributo de qualidade** que ela atende. É isso que "vende" a arquitetura.
+- Ensaie com cronômetro. Se passar de 15 min, encurte os slides 3 e 4.
+- No slide de componentes, use o ponteiro ou zoom: o PNG está em alta resolução.
+- Termine cada parte com o **atributo de qualidade** que ela atende. É isso que "vende" a arquitetura.

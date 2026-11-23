@@ -1,11 +1,12 @@
 # VitrineOn — Documento de Arquitetura de Software (E-commerce)
 
-> Projeto final da disciplina de **Arquitetura de Software**: documentação arquitetural completa de uma plataforma de e-commerce, partindo do **Diagrama de Casos de Uso** feito pelo grupo na atividade anterior.
+> Projeto final da disciplina de **Arquitetura de Software**: documentação arquitetural completa de uma plataforma de e-commerce, partindo do **Diagrama de Casos de Uso** feito na atividade anterior.
 > Entrega **100% conceitual**, sem código.
 
 | | |
 |---|---|
 | **Aluno** | Lucas Borges Krziminski |
+| **Modalidade** | Individual |
 | **Sistema** | E-commerce (estudo de caso da Semana 14: picos em promoções, catálogo grande, estoque e pagamento que precisam bater) |
 | **Versão** | 1.0 |
 
@@ -266,7 +267,7 @@ Cada componente do diagrama de componentes aparece em um nó do diagrama de impl
 | Entregável | Arquivo |
 |---|---|
 | Slides do pitch (10–15 min) | [`apresentacao/pitch-vitrineon.pdf`](apresentacao/pitch-vitrineon.pdf) |
-| Roteiro de fala com divisão por integrante | [`docs/05-roteiro-do-pitch.md`](docs/05-roteiro-do-pitch.md) |
+| Roteiro de fala com tempo por slide | [`docs/05-roteiro-do-pitch.md`](docs/05-roteiro-do-pitch.md) |
 | Rubrica de avaliação dos outros grupos | [`docs/04-rubrica-peer-review.md`](docs/04-rubrica-peer-review.md) |
 
 ---
@@ -287,8 +288,8 @@ Sem ele, cada pessoa imagina uma infraestrutura diferente, e a arquitetura fica 
 
 ### Por que o Peer Review é uma ferramenta poderosa de aprendizado em arquitetura de software?
 
-- **Desenvolve senso crítico.** Avaliar o trabalho de outro grupo obriga a perguntar "por quê?" a cada decisão, e a mesma pergunta passa a ser feita ao próprio projeto.
-- **Expõe a diferentes contextos.** Cada grupo recebeu um sistema diferente (streaming, banco, jogo). Ver como outros resolveram problemas parecidos ajuda a **reconhecer padrões e anti-padrões**: um API Gateway bem usado, um banco compartilhado que acopla microsserviços, um diagrama de implantação que não "conversa" com o de componentes.
+- **Desenvolve senso crítico.** Avaliar o trabalho de um colega obriga a perguntar "por quê?" a cada decisão, e a mesma pergunta passa a ser feita ao próprio projeto.
+- **Expõe a diferentes contextos.** Cada colega trabalhou com um sistema diferente (streaming, banco, jogo). Ver como outros resolveram problemas parecidos ajuda a **reconhecer padrões e anti-padrões**: um API Gateway bem usado, um banco compartilhado que acopla microsserviços, um diagrama de implantação que não "conversa" com o de componentes.
 - **Reforça que não existe arquitetura perfeita**, só trade-offs. Duas soluções diferentes podem estar corretas para contextos diferentes, e o revisor aprende a julgar pela **justificativa**, não pelo gosto.
 - **Treina a comunicação técnica.** Dar feedback útil ("a escolha X atende ao requisito Y, porém Z gera acoplamento") exige usar o vocabulário da disciplina com precisão, como numa revisão de arquitetura real (ARB) ou num code review.
 - **Simula o mercado.** Arquitetos passam boa parte do tempo revisando propostas de terceiros e defendendo as próprias. Receber críticas também ensina a separar a ideia do ego.

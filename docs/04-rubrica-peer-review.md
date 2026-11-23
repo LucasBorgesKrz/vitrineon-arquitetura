@@ -1,6 +1,6 @@
 # 4. Rubrica de Peer Review: Avaliação Arquitetural entre Grupos
 
-> Use esta rubrica para avaliar o projeto de **outro grupo**. Copie o modelo da seção 3 para uma *issue* no repositório do grupo avaliado (ou para um arquivo `peer-review-<grupo>.md`).
+> Use esta rubrica para avaliar o projeto de **outro colega ou grupo**. Copie o modelo da seção 3 para uma *issue* no repositório avaliado (ou para um arquivo `peer-review-<grupo>.md`).
 > **Regra de ouro:** nada de "achei legal". Todo comentário deve citar **um requisito, um atributo de qualidade ou uma decisão** e explicar o impacto.
 
 ## 1. Critérios e níveis

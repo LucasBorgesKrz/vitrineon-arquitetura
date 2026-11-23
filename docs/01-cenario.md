@@ -1,7 +1,7 @@
 # 1. Cenário do Sistema — VitrineOn (E-commerce)
 
-> **Origem:** este cenário parte do **Diagrama de Casos de Uso de E-commerce** feito pelo grupo na atividade anterior (Astah, `ecommerce Lucasb.asta`), reproduzido em [`/diagramas/01-casos-de-uso.png`](../diagramas/01-casos-de-uso.png).
-> Os números de volume, equipe e orçamento abaixo são **premissas do grupo**: troque pelos valores do enunciado do professor se ele fornecer outros.
+> **Origem:** este cenário parte do **Diagrama de Casos de Uso de E-commerce** feito na atividade anterior (Astah, `ecommerce Lucasb.asta`), reproduzido em [`/diagramas/01-casos-de-uso.png`](../diagramas/01-casos-de-uso.png).
+> Os números de volume, equipe e orçamento abaixo são **premissas do autor**: troque pelos valores do enunciado do professor se ele fornecer outros.
 
 ## 1.1 Descrição textual
 
