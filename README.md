@@ -6,6 +6,7 @@
 | | |
 |---|---|
 | **Aluno** | Lucas Borges Krziminski |
+| **RA** | 022116 |
 | **Modalidade** | Individual |
 | **Sistema** | E-commerce (estudo de caso da Semana 14: picos em promoções, catálogo grande, estoque e pagamento que precisam bater) |
 | **Versão** | 1.0 |
