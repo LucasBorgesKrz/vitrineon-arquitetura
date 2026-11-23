@@ -5,7 +5,7 @@
 
 | | |
 |---|---|
-| **Grupo** | _Nome do grupo_ |
+| **Aluno** | Lucas Borges Krziminski |
 | **Integrantes** | _Nome 1 (RA)_ · _Nome 2 (RA)_ · _Nome 3 (RA)_ · _Nome 4 (RA)_ |
 | **Sistema** | E-commerce (estudo de caso da Semana 14: picos em promoções, catálogo grande, estoque e pagamento que precisam bater) |
 | **Versão** | 1.0 |
