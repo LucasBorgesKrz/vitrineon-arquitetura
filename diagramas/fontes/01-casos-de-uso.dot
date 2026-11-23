@@ -1,0 +1,30 @@
+// Diagrama de Casos de Uso - reprodução do modelo da atividade anterior (Astah)
+// Renderizar: dot -Tpng -Gdpi=200 01-casos-de-uso.dot -o ../01-casos-de-uso.png
+digraph CasosDeUso {
+  graph [rankdir=LR, fontname="DejaVu Sans", fontsize=14, nodesep=0.5, ranksep=1.2, bgcolor="white", pad=0.4,
+         label="Diagrama de Casos de Uso — VitrineOn (E-commerce)", labelloc=t, fontsize=18];
+  node  [fontname="DejaVu Sans", fontsize=12];
+  edge  [fontname="DejaVu Sans", fontsize=11, arrowhead=none, color="#333333"];
+
+  // Atores
+  cliente [shape=plain, label=<<TABLE BORDER="0" CELLSPACING="2"><TR><TD FIXEDSIZE="TRUE" WIDTH="42" HEIGHT="70"><IMG SRC="ator.png" SCALE="TRUE"/></TD></TR><TR><TD>Cliente</TD></TR></TABLE>>];
+  admin [shape=plain, label=<<TABLE BORDER="0" CELLSPACING="2"><TR><TD FIXEDSIZE="TRUE" WIDTH="42" HEIGHT="70"><IMG SRC="ator.png" SCALE="TRUE"/></TD></TR><TR><TD>Administrador</TD></TR></TABLE>>];
+  gateway [shape=plain, label=<<TABLE BORDER="0" CELLSPACING="2"><TR><TD FIXEDSIZE="TRUE" WIDTH="42" HEIGHT="70"><IMG SRC="ator.png" SCALE="TRUE"/></TD></TR><TR><TD>Gateway de<BR/>Pagamento</TD></TR></TABLE>>];
+
+  subgraph cluster_sistema {
+    label="Sistema de E-commerce"; style="rounded"; color="#555555"; fontsize=14; margin=24;
+    node [shape=ellipse, style=filled, fillcolor="#FFF8DC", color="#8B7500", width=2.4, height=0.7];
+    uc1 [label="Buscar Produtos"];
+    uc2 [label="Gerenciar Carrinho"];
+    uc3 [label="Realizar Checkout"];
+    uc5 [label="Processar Pagamento"];
+    uc4 [label="Atualizar Estoque"];
+  }
+
+  cliente -> uc1; cliente -> uc2; cliente -> uc3;
+  admin -> uc4;
+  uc3 -> uc5 [style=dashed, arrowhead=vee, label="«include»"];
+  uc5 -> gateway;
+
+  {rank=same; cliente; admin}
+}

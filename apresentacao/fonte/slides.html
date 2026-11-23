@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>VitrineOn — Pitch de Arquitetura</title>
+<style>
+  @page { size: 1280px 720px; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --ink:#1C2430; --muted:#5B6575; --blue:#2B5C8A; --red:#B71C1C; --gold:#8B7500; --green:#2E7D32; --bg:#FFFFFF; --soft:#F3F6FA; }
+  body { font-family: "DejaVu Sans", Arial, sans-serif; color: var(--ink); }
+  .slide { width:1280px; height:720px; padding:56px 72px; position:relative; overflow:hidden; page-break-after:always; background:var(--bg); display:flex; flex-direction:column; }
+  .slide:last-child { page-break-after:auto; }
+  .num { position:absolute; bottom:24px; right:40px; font-size:14px; color:var(--muted); }
+  .tag { position:absolute; bottom:24px; left:72px; font-size:14px; color:var(--muted); }
+  h1 { font-size:54px; line-height:1.1; letter-spacing:-0.5px; }
+  h2 { font-size:36px; margin-bottom:28px; letter-spacing:-0.3px; }
+  h2 small { display:block; font-size:18px; color:var(--muted); font-weight:normal; margin-top:6px; letter-spacing:0; }
+  p, li { font-size:22px; line-height:1.45; }
+  ul { padding-left:28px; } li { margin-bottom:10px; }
+  .muted { color:var(--muted); }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+  .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:22px; }
+  .card { background:var(--soft); border-radius:14px; padding:22px 24px; border-left:6px solid var(--blue); }
+  .card h3 { font-size:22px; margin-bottom:10px; }
+  .card p, .card li { font-size:18px; }
+  .big { font-size:44px; font-weight:bold; color:var(--blue); }
+  .red { border-color:var(--red); } .gold { border-color:var(--gold); } .green { border-color:var(--green); }
+  table { border-collapse:collapse; width:100%; font-size:18px; }
+  th, td { padding:11px 14px; border-bottom:1px solid #D8DEE6; text-align:left; vertical-align:top; }
+  th { background:var(--soft); }
+  td.win, th.win { background:#E8F1FB; font-weight:bold; }
+  .img { flex:1; display:flex; align-items:center; justify-content:center; min-height:0; }
+  .img img { max-width:100%; max-height:100%; object-fit:contain; }
+  .cover { background:linear-gradient(135deg,#1F3B57 0%,#2B5C8A 60%,#3D7AB3 100%); color:#fff; justify-content:center; }
+  .cover p { color:#DCE8F5; }
+  .steps { counter-reset:s; list-style:none; padding:0; }
+  .steps li { counter-increment:s; position:relative; padding-left:56px; margin-bottom:14px; font-size:20px; }
+  .steps li::before { content:counter(s); position:absolute; left:0; top:0; width:38px; height:38px; border-radius:50%; background:var(--blue); color:#fff; font-weight:bold; display:flex; align-items:center; justify-content:center; font-size:18px; }
+  .pill { display:inline-block; padding:4px 12px; border-radius:20px; background:#E8F1FB; color:var(--blue); font-size:16px; font-weight:bold; margin-right:8px; }
+  .quote { font-size:28px; line-height:1.4; border-left:6px solid var(--blue); padding-left:24px; margin-top:12px; }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide cover">
+  <p style="font-size:20px; letter-spacing:2px; text-transform:uppercase; margin-bottom:18px;">Projeto Final · Arquitetura de Software</p>
+  <h1 style="font-size:72px;">VitrineOn</h1>
+  <p style="font-size:32px; color:#fff; margin-top:14px; line-height:1.3;">Uma loja virtual que aguenta a Black Friday<br>e protege o cartão do cliente</p>
+  <p style="margin-top:34px; font-size:22px;">Grupo: <em>Nome do grupo</em> · Integrantes: <em>Nome 1, Nome 2, Nome 3, Nome 4</em></p>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <h2>O desafio do negócio<small>Varejista de médio porte abrindo o canal online</small></h2>
+  <div class="grid3">
+    <div class="card"><div class="big">10×</div><p>de tráfego na Black Friday e no Natal. Fora do ar = venda perdida.</p></div>
+    <div class="card red"><div class="big" style="color:var(--red)">Cartão</div><p>e dados pessoais. Um vazamento custa a credencial PCI e multa da LGPD.</p></div>
+    <div class="card gold"><div class="big" style="color:var(--gold)">50 mil</div><p>produtos. 95% dos acessos são buscas e navegação.</p></div>
+  </div>
+  <p style="margin-top:34px;" class="muted">E a regra que não pode falhar: <strong style="color:var(--ink)">estoque e pagamento precisam bater</strong>. Nada de vender o que não existe nem cobrar duas vezes.</p>
+  <span class="num">2</span>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <h2>O que o sistema faz<small>Casos de uso da atividade anterior: a base do projeto</small></h2>
+  <div class="img"><img src="../../diagramas/01-casos-de-uso.png" alt="Casos de uso"></div>
+  <span class="num">3</span>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <h2>As restrições do mundo real</h2>
+  <table>
+    <tr><th>Restrição</th><th>O que isso nos obriga a fazer</th></tr>
+    <tr><td><strong>Equipe de 6 pessoas</strong>, MVP em 6 meses</td><td>Poucos deploys, serviços gerenciados, nada de Kubernetes</td></tr>
+    <tr><td><strong>Orçamento limitado</strong> (~US$ 3 mil/mês)</td><td>Pagar por uso; escalar só no pico</td></tr>
+    <tr><td><strong>Picos de 10×</strong></td><td>A busca precisa escalar sozinha</td></tr>
+    <tr><td><strong>PCI-DSS e LGPD</strong></td><td>Cartão nunca passa por nós; dados no Brasil</td></tr>
+    <tr><td><strong>Gateway de terceiros</strong></td><td>Poder trocar de gateway sem reescrever o checkout</td></tr>
+  </table>
+  <span class="num">4</span>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <h2>O que mais importa: atributos priorizados<small>ISO/IEC 25010, com metas mensuráveis</small></h2>
+  <div class="grid3">
+    <div class="card red"><h3>1º Segurança</h3><ul><li>0 dados de cartão nos nossos sistemas (PCI SAQ A)</li><li>MFA para administradores</li><li>TLS em 100% das conexões</li></ul></div>
+    <div class="card"><h3>2º Confiabilidade</h3><ul><li>Disponibilidade ≥ 99,9%</li><li>0 cobranças duplicadas</li><li>Failover do banco ≤ 60 s</li></ul></div>
+    <div class="card gold"><h3>3º Desempenho</h3><ul><li>Busca p95 ≤ 200 ms com 20 mil usuários</li><li>Checkout p95 ≤ 1,5 s</li><li>2 → 20 instâncias em ≤ 3 min</li></ul></div>
+  </div>
+  <p style="margin-top:26px;" class="muted">Depois: 4º Manutenibilidade · 5º Usabilidade · 6º Portabilidade. <strong style="color:var(--ink)">Se Segurança e Disponibilidade brigarem, Segurança vence.</strong></p>
+  <span class="num">5</span>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <h2>Qual estilo? Comparamos três opções<small>"Não existe estilo perfeito, existe o mais adequado ao contexto"</small></h2>
+  <table>
+    <tr><th></th><th>Monolito puro</th><th>Microsserviços completos</th><th class="win">Monolito modular + 2 microsserviços ✔</th></tr>
+    <tr><td><strong>Segurança</strong></td><td>Pagamento junto de tudo</td><td>Bom isolamento</td><td class="win">Pagamento isolado</td></tr>
+    <tr><td><strong>Consistência</strong></td><td>Simples</td><td>Difícil (sagas)</td><td class="win">Estoque + pedido numa transação</td></tr>
+    <tr><td><strong>Escala</strong></td><td>Escala tudo junto (caro)</td><td>Por serviço</td><td class="win">Busca escala sozinha</td></tr>
+    <tr><td><strong>Equipe de 6</strong></td><td>Fácil</td><td>Operação pesada</td><td class="win">3 deploys</td></tr>
+  </table>
+  <p style="margin-top:22px;" class="muted">Regra prática: <strong style="color:var(--ink)">comece simples e só complique quando houver motivo real</strong>. Os motivos aqui: escala (Catálogo) e segurança (Pagamento).</p>
+  <span class="num">6</span>
+</section>
+
+<!-- 7 -->
+<section class="slide" style="padding:30px 40px 44px;">
+  <h2 style="margin-bottom:8px; font-size:30px;">Diagrama de Componentes</h2>
+  <div class="img"><img src="../../diagramas/02-componentes.png" alt="Componentes"></div>
+  <span class="num">7</span>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <h2>Um checkout seguro e que não cobra duas vezes</h2>
+  <div class="grid2" style="grid-template-columns:1.35fr 1fr;">
+    <ol class="steps">
+      <li>Cliente finaliza: <strong>pedido + reserva de estoque</strong> numa transação única</li>
+      <li>Cartão é digitado no <strong>campo do gateway</strong>, e só um <strong>token</strong> volta para nós</li>
+      <li>Cobrança enviada com <strong>chave de idempotência</strong> = id do pedido</li>
+      <li>Gateway responde por <strong>webhook</strong> → evento na fila</li>
+      <li>Pedido confirmado, estoque baixado, e-mail enviado</li>
+    </ol>
+    <div>
+      <div class="card red" style="margin-bottom:18px;"><h3>Se o gateway cair?</h3><p>Circuit breaker abre, cliente vê mensagem amigável, reserva expira em 15 min. Busca e carrinho seguem no ar.</p></div>
+      <div class="card"><h3>Se a rede repetir a chamada?</h3><p>A chave de idempotência garante que a cobrança acontece uma vez só.</p></div>
+    </div>
+  </div>
+  <span class="num">8</span>
+</section>
+
+<!-- 9 -->
+<section class="slide" style="padding:28px 48px 40px;">
+  <h2 style="margin-bottom:10px; font-size:30px;">Diagrama de Implantação: AWS São Paulo, 2 zonas</h2>
+  <div style="flex:1; display:grid; grid-template-columns:1.05fr 1fr; gap:28px; min-height:0;">
+    <div class="img"><img src="../../diagramas/03-implantacao.png" alt="Implantação"></div>
+    <div style="display:flex; flex-direction:column; justify-content:center;">
+      <ul>
+        <li style="font-size:19px;"><strong>Borda:</strong> CloudFront + WAF, API Gateway, Cognito</li>
+        <li style="font-size:19px;"><strong>Aplicação:</strong> 3 imagens Docker no ECS Fargate, em <strong>2 zonas</strong>, sub-redes privadas</li>
+        <li style="font-size:19px;"><strong>Dados:</strong> Aurora PostgreSQL (writer + réplica), DynamoDB, OpenSearch, Redis</li>
+        <li style="font-size:19px;"><strong>Mensageria:</strong> SNS + SQS com fila de mensagens mortas</li>
+        <li style="font-size:19px;"><strong>Saída:</strong> só o Pagamento fala com a Internet (NAT)</li>
+        <li style="font-size:19px;"><strong>Entrega:</strong> GitHub Actions → ECR → deploy blue/green</li>
+      </ul>
+      <p class="muted" style="font-size:16px; margin-top:8px;">Cada componente do diagrama anterior tem um lugar aqui (tabela no README, seção 2.4).</p>
+    </div>
+  </div>
+  <span class="num">9</span>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <h2>Black Friday: como aguentamos 10×</h2>
+  <div class="grid2">
+    <div class="card gold"><h3>Absorver a busca</h3><ul><li>CDN entrega site e imagens</li><li>OpenSearch + cache Redis</li><li><strong>Catálogo escala de 2 para 20</strong> instâncias sem mexer no resto</li></ul></div>
+    <div class="card"><h3>Proteger o checkout</h3><ul><li>Loja Core escala de 2 para 10</li><li>DynamoDB paga por requisição e cresce sozinho</li><li>Escalonamento agendado antes da data + teste de carga</li></ul></div>
+  </div>
+  <p style="margin-top:28px;" class="muted">Fora do pico, tudo volta ao mínimo, e o orçamento agradece.</p>
+  <span class="num">10</span>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <h2>E se algo der errado?</h2>
+  <table>
+    <tr><th>Falha</th><th>Resposta da arquitetura</th><th>Meta</th></tr>
+    <tr><td>Cai uma zona de disponibilidade</td><td>Instâncias na outra zona; Aurora promove a réplica</td><td>≤ 60 s</td></tr>
+    <tr><td>Gateway de pagamento fora</td><td>Circuit breaker + reserva com expiração</td><td>Loja segue no ar</td></tr>
+    <tr><td>Um serviço consumidor cai</td><td>Mensagens esperam na fila; DLQ para análise</td><td>0 eventos perdidos</td></tr>
+    <tr><td>Ataque / bot no login</td><td>WAF limita taxa; Cognito bloqueia conta</td><td>≤ 1 min</td></tr>
+    <tr><td>Deploy com bug</td><td>Blue/green com rollback automático</td><td>sem downtime</td></tr>
+  </table>
+  <span class="num">11</span>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <h2>Trade-offs que assumimos conscientemente</h2>
+  <div class="grid2">
+    <div class="card"><h3>Consistência eventual na vitrine</h3><p>A disponibilidade na busca pode atrasar até 5 s. A checagem exata acontece na reserva do checkout.</p></div>
+    <div class="card gold"><h3>Um único NAT Gateway</h3><p>Economiza custo. Nas semanas de pico, adicionamos um segundo.</p></div>
+    <div class="card green"><h3>Módulos da Loja Core escalam juntos</h3><p>Aceitável no volume atual; fronteiras prontas para extrair depois (Strangler Fig).</p></div>
+    <div class="card red"><h3>Dependência da AWS</h3><p>Mitigada com Docker, PostgreSQL e Terraform.</p></div>
+  </div>
+  <span class="num">12</span>
+</section>
+
+<!-- 13 -->
+<section class="slide cover">
+  <h1 style="font-size:46px;">Por que essa arquitetura?</h1>
+  <p class="quote" style="border-color:#9EC3E6; color:#fff;">Segura onde o risco é maior, escalável onde o tráfego é maior,<br>e simples o bastante para uma equipe de 6 pessoas entregar em 6 meses.</p>
+  <p style="margin-top:40px; font-size:24px;">Obrigado! Perguntas?</p>
+  <p style="margin-top:10px; font-size:18px;">Repositório: <em>github.com/&lt;usuario&gt;/&lt;repositorio&gt;</em></p>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+// Diagrama de Componentes - VitrineOn (E-commerce)
+// Gerado a partir de gen_componentes.py — pode ser editado diretamente.
+// Renderizar: dot -Tpng -Gdpi=170 02-componentes.dot -o ../02-componentes.png
+digraph Componentes {
+  graph [rankdir=TB, fontname="DejaVu Sans", fontsize=13, nodesep=0.45, ranksep=0.65, newrank=true, compound=true, pad=0.4,
+         label=<<B>Diagrama de Componentes — VitrineOn (E-commerce)</B><BR/><FONT POINT-SIZE="11">Estilo: cliente-servidor + monolito modular em camadas + 2 microsserviços · Padrões: API Gateway, MVC, Repository, Adapter, Publish/Subscribe</FONT>>,
+         labelloc=t, fontsize=18];
+  node  [fontname="DejaVu Sans", fontsize=11];
+  // subgrafos (clusters) usam fonte menor que o título
+  edge  [fontname="DejaVu Sans", fontsize=9, color="#333333", arrowsize=0.7];
+  subgraph cluster_front { label=<<B>Front-end (clientes)</B>>; style="rounded,dashed"; color="#7A7A7A"; fontsize=13; margin=14;
+  lojaweb [shape=plain, label=<<TABLE BORDER="1" COLOR="#2E7D32" BGCOLOR="#EAF7EA" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«component · SPA»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>Loja Web</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">Vitrine, busca, carrinho e checkout<BR/>React (padrão MVC/MVVM no cliente)</FONT></TD></TR></TABLE>>];
+  admin [shape=plain, label=<<TABLE BORDER="1" COLOR="#2E7D32" BGCOLOR="#EAF7EA" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«component · SPA»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>Painel Administrativo</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">Cadastro de produtos e<BR/>atualização de estoque (UC04)</FONT></TD></TR></TABLE>>];
+  }
+  subgraph cluster_borda { label=<<B>Borda / Entrada</B>>; style="rounded,dashed"; color="#7A7A7A"; fontsize=13; margin=14;
+  cdn [shape=plain, label=<<TABLE BORDER="1" COLOR="#6A1B9A" BGCOLOR="#F3EAFB" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«component»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>CDN + WAF</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">Entrega arquivos estáticos e imagens<BR/>Bloqueia ataques e limita taxa</FONT></TD></TR></TABLE>>];
+  apigw [shape=plain, label=<<TABLE BORDER="1" COLOR="#6A1B9A" BGCOLOR="#F3EAFB" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«component»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>API Gateway</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">Porta de entrada única da API<BR/>Roteamento, autenticação JWT,<BR/>throttling e CORS</FONT></TD></TR></TABLE>>];
+  idp [shape=plain, label=<<TABLE BORDER="1" COLOR="#6A1B9A" BGCOLOR="#F3EAFB" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«component»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>Identidade</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">Cadastro/login de clientes e admins<BR/>OAuth2/OIDC, MFA para admin</FONT></TD></TR></TABLE>>];
+  }
+  subgraph cluster_core { label=<<B>«subsystem» Loja Core — monolito modular em camadas</B><BR/><FONT POINT-SIZE="10">um deploy · um banco · módulos com fronteiras claras</FONT>>; style="rounded,filled"; fillcolor="#F7FAFD"; color="#2B5C8A"; penwidth=1.6; margin=16; fontsize=14;
+    subgraph cluster_l1 { label="Camada de Apresentação (API)"; style="rounded"; color="#9DB7D1"; fontsize=10;
+  ctrl [shape=plain, label=<<TABLE BORDER="1" COLOR="#2B5C8A" BGCOLOR="#E8F1FB" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«component»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>Controladores REST</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">/carrinho · /pedidos · /estoque · /clientes<BR/>Validação de entrada e DTOs</FONT></TD></TR></TABLE>>];
+    }
+    subgraph cluster_l2 { label="Camada de Regras de Negócio (módulos)"; style="rounded"; color="#9DB7D1"; fontsize=10;
+  mcar [shape=plain, label=<<TABLE BORDER="1" COLOR="#2B5C8A" BGCOLOR="#E8F1FB" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«module»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>Carrinho</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">UC02 Gerenciar Carrinho</FONT></TD></TR></TABLE>>];
+  mped [shape=plain, label=<<TABLE BORDER="1" COLOR="#2B5C8A" BGCOLOR="#E8F1FB" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«module»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>Pedidos / Checkout</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">UC03 Realizar Checkout<BR/>Cria pedido e reserva estoque<BR/>na mesma transação</FONT></TD></TR></TABLE>>];
+  mest [shape=plain, label=<<TABLE BORDER="1" COLOR="#2B5C8A" BGCOLOR="#E8F1FB" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«module»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>Estoque</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">UC04 Atualizar Estoque<BR/>Reserva, baixa e auditoria</FONT></TD></TR></TABLE>>];
+  mcli [shape=plain, label=<<TABLE BORDER="1" COLOR="#2B5C8A" BGCOLOR="#E8F1FB" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«module»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>Clientes</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">Endereços e dados pessoais<BR/>(LGPD: consentimento/exclusão)</FONT></TD></TR></TABLE>>];
+  mnot [shape=plain, label=<<TABLE BORDER="1" COLOR="#2B5C8A" BGCOLOR="#E8F1FB" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«module»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>Notificações</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">E-mails de pedido<BR/>e de pagamento</FONT></TD></TR></TABLE>>];
+    }
+    subgraph cluster_l3 { label="Camada de Acesso a Dados"; style="rounded"; color="#9DB7D1"; fontsize=10;
+  repo [shape=plain, label=<<TABLE BORDER="1" COLOR="#2B5C8A" BGCOLOR="#E8F1FB" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«component»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>Repositórios</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">Padrão Repository (ORM)<BR/>Isola SQL das regras de negócio</FONT></TD></TR></TABLE>>];
+    }
+  dbcore [shape=cylinder, style=filled, fillcolor="#FDF0E1", color="#B36B00", label=<<FONT POINT-SIZE="9" COLOR="#555555">«database»</FONT><BR/><B>Banco da Loja Core</B><BR/><FONT POINT-SIZE="9">PostgreSQL · pedidos, estoque,<BR/>carrinhos, clientes</FONT>>, margin="0.15,0.08"];
+  }
+  subgraph cluster_cat { label=<<B>«microsserviço» Catálogo e Busca</B><BR/><FONT POINT-SIZE="10">UC01 · escala sozinho nos picos</FONT>>; style="rounded,filled"; fillcolor="#FBFBF2"; color="#8B7500"; penwidth=1.6; margin=14; fontsize=14;
+  catapi [shape=plain, label=<<TABLE BORDER="1" COLOR="#8B7500" BGCOLOR="#FFF8DC" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«component»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>API de Catálogo</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">GET /produtos, /busca<BR/>Cadastro de produtos (admin)</FONT></TD></TR></TABLE>>];
+  cache [shape=plain, label=<<TABLE BORDER="1" COLOR="#8B7500" BGCOLOR="#FFF8DC" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«component»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>Cache</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">Cache-aside de produtos<BR/>e buscas populares</FONT></TD></TR></TABLE>>];
+  idx [shape=cylinder, style=filled, fillcolor="#FDF0E1", color="#B36B00", label=<<FONT POINT-SIZE="9" COLOR="#555555">«database»</FONT><BR/><B>Índice de Busca</B><BR/><FONT POINT-SIZE="9">texto, filtros, facetas</FONT>>, margin="0.15,0.08"];
+  dbcat [shape=cylinder, style=filled, fillcolor="#FDF0E1", color="#B36B00", label=<<FONT POINT-SIZE="9" COLOR="#555555">«database»</FONT><BR/><B>Banco do Catálogo</B><BR/><FONT POINT-SIZE="9">NoSQL · produtos e preços</FONT>>, margin="0.15,0.08"];
+  }
+  subgraph cluster_pag { label=<<B>«microsserviço» Pagamento</B><BR/><FONT POINT-SIZE="10">UC05 · isolado por segurança (PCI)</FONT>>; style="rounded,filled"; fillcolor="#FDF5F5"; color="#B71C1C"; penwidth=1.6; margin=14; fontsize=14;
+  pagapi [shape=plain, label=<<TABLE BORDER="1" COLOR="#B71C1C" BGCOLOR="#FDECEC" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«component»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>API de Pagamento</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">Cria cobrança (idempotente)<BR/>Recebe webhooks do gateway<BR/>Circuit breaker + retry</FONT></TD></TR></TABLE>>];
+  adapt [shape=plain, label=<<TABLE BORDER="1" COLOR="#B71C1C" BGCOLOR="#FDECEC" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«component»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>Adaptador do Gateway</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">Padrão Adapter (GatewayPort)<BR/>Troca de gateway sem afetar<BR/>o resto do sistema</FONT></TD></TR></TABLE>>];
+  dbpag [shape=cylinder, style=filled, fillcolor="#FDF0E1", color="#B36B00", label=<<FONT POINT-SIZE="9" COLOR="#555555">«database»</FONT><BR/><B>Banco de Pagamentos</B><BR/><FONT POINT-SIZE="9">NoSQL · transações e tokens<BR/>(nunca o cartão)</FONT>>, margin="0.15,0.08"];
+  }
+  bus [shape=plain, label=<<TABLE BORDER="1" COLOR="#455A64" BGCOLOR="#ECEFF1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«component»</FONT></TD><TD FIXEDSIZE="TRUE" WIDTH="16" HEIGHT="13" ALIGN="RIGHT"><IMG SRC="componente.png" SCALE="TRUE"/></TD></TR><TR><TD COLSPAN="2"><B>Barramento de Eventos</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">Tópicos + filas com DLQ (publish/subscribe)<BR/>EstoqueAtualizado · PagamentoConfirmado · PagamentoRecusado</FONT></TD></TR></TABLE>>];
+  subgraph cluster_ext { label=<<B>Sistemas externos</B>>; style="rounded,dashed"; color="#7A7A7A"; fontsize=13; margin=14;
+  gw [shape=plain, label=<<TABLE BORDER="1" COLOR="#000000" BGCOLOR="#FFFFFF" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«external system»</FONT></TD><TD></TD></TR><TR><TD COLSPAN="2"><B>Gateway de Pagamento</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">Ator do UC05 (ex.: Mercado Pago,<BR/>Stripe, PagSeguro)<BR/>Tokeniza cartão · Pix</FONT></TD></TR></TABLE>>];
+  mail [shape=plain, label=<<TABLE BORDER="1" COLOR="#000000" BGCOLOR="#FFFFFF" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="rounded"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="9" COLOR="#555555">«external system»</FONT></TD><TD></TD></TR><TR><TD COLSPAN="2"><B>Serviço de E-mail</B></TD></TR><TR><TD COLSPAN="2"><FONT POINT-SIZE="9" COLOR="#333333">Envio transacional</FONT></TD></TR></TABLE>>];
+  }
+
+  // ---- Comunicação síncrona (HTTPS/REST) ----
+  lojaweb -> cdn  [label="HTTPS"];
+  admin   -> cdn  [label="HTTPS"];
+  lojaweb -> idp  [label="login OIDC", style=solid, color="#6A1B9A", fontcolor="#6A1B9A"];
+  cdn   -> apigw  [label="/api/*  HTTPS"];
+  apigw -> idp    [label="valida JWT", color="#6A1B9A", fontcolor="#6A1B9A"];
+  apigw -> ctrl   [label="REST /carrinho /pedidos\n/estoque /clientes", lhead=cluster_core];
+  apigw -> catapi [label="REST /produtos /busca"];
+  apigw -> pagapi [label="REST /webhooks/pagamento"];
+
+  ctrl -> mcar; ctrl -> mped; ctrl -> mest; ctrl -> mcli;
+  mped -> mest [label="reserva", fontsize=8];
+  mcar -> repo; mped -> repo; mest -> repo; mcli -> repo;
+  repo -> dbcore [label="SQL"];
+
+  mped  -> catapi [label="consulta preço\n(REST)", color="#8B7500", fontcolor="#8B7500"];
+  mped  -> pagapi [label="criar cobrança\n(REST, chave de idempotência)", color="#B71C1C", fontcolor="#B71C1C", penwidth=1.4];
+
+  catapi -> cache; catapi -> idx [label="consulta"]; catapi -> dbcat;
+  pagapi -> adapt; pagapi -> dbpag;
+  adapt  -> gw [label="HTTPS/REST\n(token do cartão)", color="#B71C1C", fontcolor="#B71C1C"];
+  lojaweb -> gw [label="SDK JS: cartão digitado\ndireto no gateway (tokenização)", color="#B71C1C", fontcolor="#B71C1C", style=bold, constraint=false, weight=0];
+  gw -> apigw [label="webhook HTTPS\n(status do pagamento)", style=dashed, color="#B71C1C", fontcolor="#B71C1C", constraint=false];
+  mnot -> mail [label="SMTP/API"];
+
+  // ---- Comunicação assíncrona (eventos) ----
+  mest   -> bus [style=dashed, color="#455A64", fontcolor="#455A64", label="publica\nEstoqueAtualizado"];
+  pagapi -> bus [style=dashed, color="#455A64", fontcolor="#455A64", label="publica\nPagamentoConfirmado/Recusado"];
+  bus -> catapi [style=dashed, color="#455A64", fontcolor="#455A64", label="consome\nEstoqueAtualizado\n(atualiza índice)"];
+  bus -> mped   [style=dashed, color="#455A64", fontcolor="#455A64", label="consome Pagamento*\n(confirma pedido)"];
+  mped -> mnot  [label="pedido confirmado", fontsize=8];
+
+  // ---- Legenda ----
+  subgraph cluster_leg { label=<<B>Legenda</B>>; style="rounded"; color="#BBBBBB"; fontsize=10; margin=8;
+    l1 [shape=plaintext, label="", width=0.1]; l2 [shape=plaintext, label="", width=0.1];
+    l3 [shape=plaintext, label="", width=0.1]; l4 [shape=plaintext, label="", width=0.1];
+    l1 -> l2 [label="chamada síncrona (HTTPS/REST)"];
+    l3 -> l4 [label="evento assíncrono (fila/tópico)", style=dashed, color="#455A64"];
+  }
+
+  {rank=same; lojaweb; admin}
+  {rank=same; cdn; idp}
+  {rank=same; ctrl; catapi; pagapi}
+  {rank=same; repo; bus; mail}
+  {rank=same; dbcore; gw}
+  {rank=same; l1; l2; l3; l4}
+}
